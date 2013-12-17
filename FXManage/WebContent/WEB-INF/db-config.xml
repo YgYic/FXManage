@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="
+     http://www.springframework.org/schema/beans 
+     http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+  
+	<bean id="fxAccountDAO" class="com.accelet.dao.impl.FxAccountDAO">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+	</bean>
+	<bean id="fxAdminDAO" class="com.accelet.dao.impl.FxAdminDAO">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+	</bean>
+     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+     	<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+     	<property name="url" value="jdbc:mysql://192.168.1.171:3306/fetion?useUnicode=true&amp;characterEncoding=GBK&amp;zeroDateTimeBehavior=round" />
+     	<property name="username" value="root" />
+     	<property name="password" value="z1f7r3" />
+     	<property name="validationQuery" value="SELECT 1" />
+     	<property name="testOnBorrow" value="true" />
+     </bean>
+</beans>

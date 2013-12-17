@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd   
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd"> 
+
+	<bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping" />
+
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix">
+			<value>/WEB-INF/jsp/</value>
+		</property>
+		<property name="suffix">
+			<value>.jsp</value>
+		</property>
+	</bean>
+
+	<bean id="userAccessInterceptor" class="com.accelet.controller.AccesssInterceptor">
+	</bean>
+
+	<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+
+		<property name="interceptors">
+			<list>
+				<ref bean="userAccessInterceptor" />
+			</list>
+		</property>
+
+		<property name="mappings">
+			<props>
+				<prop key="fxAccountsManage.do">fxAccountsController</prop>
+			</props>
+		</property>
+	</bean>	
+	
+	<!-- 飞信账号管理 -->
+	<bean id="fxAccountsController" class="com.accelet.controller.manage.FxAccountsController">
+		<property name="fxAccountsListView">
+			<value>fxManage/fxAccountsList</value>
+		</property>
+	</bean>
+	
+	<bean name="/menu.do" class="com.accelet.controller.MenuController">
+		<property name="menuView">
+			<value>menu</value>
+		</property>
+	</bean>
+	
+	<bean name="/logout.do" class="com.accelet.controller.AdminLogoutController">
+		<property name="successView">
+			<value>logout</value>
+		</property>
+	</bean>
+
+	<bean name="/login.do" class="com.accelet.controller.AdminLoginController">
+		<property name="successView">
+			<value>main</value>
+		</property>
+		<property name="loginView">
+			<value>login</value>
+		</property>
+	</bean>
+	
+</beans>
