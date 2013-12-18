@@ -18,14 +18,14 @@ public class FxAdminDAO implements IFxAdminDAO{
 		ResultSet rs = null;
 		try{
 			conn = dataSource.getConnection();
-			String sql = "select sn,pwd,valid_flag from admin_info where admin=?";
+			String sql = "select admin_sn,admin_name,admin_pwd,valid_flag from admin_info where admin_id=?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setString(1, admin);
 			rs = stmt.executeQuery();
 			FxAdminEntity fxAdmin = new FxAdminEntity(); 
 			if(rs.next()) {
-				fxAdmin.setSn(rs.getInt("sn"));
-				fxAdmin.setPwd(rs.getString("pwd"));
+				fxAdmin.setSn(rs.getInt("admin_sn"));
+				fxAdmin.setPwd(rs.getString("admin_pwd"));
 				fxAdmin.setValidFlag(rs.getInt("valid_flag"));
 			}
 			return fxAdmin;
